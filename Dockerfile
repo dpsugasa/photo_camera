@@ -1,4 +1,15 @@
-FROM python:3
-ADD my_script.py /
-RUN pip3 install picamera
-CMD [ "python3", "my_script.py" ]
+FROM balenalib/raspberrypi3:latest
+
+RUN mkdir -p /opt/vc/bin
+COPY opt_vc /opt/vc
+RUN echo "/opt/vc/lib" > /etc/ld.so.conf.d/00-vmcs.conf
+RUN ldconfig
+
+RUN ls -l /opt/vc/
+
+ENV PATH $PATH:/opt/vc/bin/
+
+RUN mkdir /root/images/
+WORKDIR /root/images/
+
+ENTRYPOINT ["/opt/vc/bin/raspistill"]
