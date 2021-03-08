@@ -1,4 +1,4 @@
-FROM balenalib/raspberrypi3:latest
+FROM resin/rpi-raspbian:buster
 
 RUN mkdir -p /opt/vc/bin
 COPY opt_vc /opt/vc
